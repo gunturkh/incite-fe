@@ -20,6 +20,7 @@ function Login(props: Props) {
                     headers: {
                         "Content-Type": "application/json",
                     },
+                    mode: 'cors',
                     method: 'POST',
                     body: JSON.stringify({ email, password })
                 })

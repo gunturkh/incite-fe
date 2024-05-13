@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 
 type Props = {}
 
-function Login(props: Props) {
+function ChangePassword(props: Props) {
     const setAuthenticated = useAuthStore(state => state.setAuthenticated)
     const setAccessToken = useAuthStore(state => state.setAccessToken)
     const [loading, setLoading] = useState(false)
@@ -42,7 +42,7 @@ function Login(props: Props) {
             const { email, password } = values
             try {
                 if (email && password) {
-                    const response = await fetch(`${API_URL}/auth/login`, {
+                    const response = await fetch(`${API_URL}/auth/email/reset-password`, {
                         headers: {
                             "Content-Type": "application/json",
                         },
@@ -175,4 +175,4 @@ function Login(props: Props) {
     )
 }
 
-export default Login
+export default ChangePassword

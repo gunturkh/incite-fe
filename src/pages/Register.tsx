@@ -1,24 +1,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { API_URL } from '../constants'
-import { useAuthStore } from '../store'
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 
 type Props = {}
 
-function Login(props: Props) {
-    const setAuthenticated = useAuthStore(state => state.setAuthenticated)
-    const setAccessToken = useAuthStore(state => state.setAccessToken)
+function Register(props: Props) {
     const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
     const googleLogin = async () => {
         try {
-            console.log(`${API_URL}/auth/google/login`);
-            window.open(`${API_URL}/auth/google/login`, "_self");
+            window.open(`${API_URL}/auth/google/register`, "_self");
         } catch (ex) {
             console.log(ex)
         }
@@ -42,7 +38,7 @@ function Login(props: Props) {
             const { email, password } = values
             try {
                 if (email && password) {
-                    const response = await fetch(`${API_URL}/auth/login`, {
+                    const response = await fetch(`${API_URL}/auth/register`, {
                         headers: {
                             "Content-Type": "application/json",
                         },
@@ -53,15 +49,15 @@ function Login(props: Props) {
                     const result = await response.json()
                     console.log('login result', result)
 
-                    if (response.ok) {
+                    if (response.status === 200) {
                         setLoading(false)
-                        setAuthenticated(true)
-                        setAccessToken(result.data.accessToken)
-                        navigate('/')
+                        navigate('/login')
+                        // setAuthenticated(true)
+                        // setAccessToken(result.data.accessToken)
                     }
                     else {
                         setLoading(false)
-                        alert(result.message);
+                        alert(result.msg);
                     }
 
                 }
@@ -81,7 +77,7 @@ function Login(props: Props) {
                         alt="INCIT TEST"
                     />
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                        Sign in to your account
+                        Create your account
                     </h2>
                 </div>
 
@@ -115,9 +111,6 @@ function Login(props: Props) {
                                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                                     Password
                                 </label>
-                                <div className="text-sm">
-                                    <Link className="font-semibold text-indigo-600 hover:text-indigo-500" to={'/forgot-password'}>Forgot password</Link>
-                                </div>
                             </div>
                             <div className="mt-2">
                                 <input
@@ -143,11 +136,11 @@ function Login(props: Props) {
                                 disabled={loading}
                                 className={`flex w-full justify-center rounded-md ${loading ? 'bg-gray-500' : 'bg-indigo-600'} px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
                             >
-                                {loading ? 'Loading...' : 'Sign in'}
+                                {loading ? 'Loading...' : 'Register'}
                             </button>
                         </div>
                         <div className='w-full text-center'>
-                            <p className='font-semibold text-sm'>Or continue with</p>
+                            <p className='font-semibold text-sm'>Or register with</p>
                         </div>
                     </form>
                     <div className='flex flex-col gap-5 mt-4'>
@@ -166,8 +159,8 @@ function Login(props: Props) {
                     </div>
 
                     <p className="mt-10 text-center text-sm text-gray-500">
-                        Not a member?{' '}
-                        <Link className="font-semibold text-indigo-600 hover:text-indigo-500" to={'/register'}>Register</Link>
+                        Already have an account? {' '}
+                        <Link className="font-semibold text-indigo-600 hover:text-indigo-500" to={'/login'}>Back to Login</Link>
                     </p>
                 </div>
             </div>
@@ -175,4 +168,4 @@ function Login(props: Props) {
     )
 }
 
-export default Login
+export default Register

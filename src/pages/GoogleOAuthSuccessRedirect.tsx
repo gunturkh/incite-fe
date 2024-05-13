@@ -5,7 +5,8 @@ import { useAuthStore } from '../store';
 type Props = {}
 
 function GoogleOAuthSuccessRedirect(props: Props) {
-    let { accessToken, refreshToken } = useParams();
+    let { accessToken, refreshToken, from } = useParams();
+    console.log('from', from)
     const navigate = useNavigate()
     const setAccessToken = useAuthStore(state => state.setAccessToken)
     const setAuthenticated = useAuthStore(state => state.setAuthenticated)
@@ -17,6 +18,8 @@ function GoogleOAuthSuccessRedirect(props: Props) {
             setAuthenticated(true)
             navigate('/', { replace: true });
         }
+
+
     }, [accessToken])
 
 

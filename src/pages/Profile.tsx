@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { API_URL } from '../constants'
 import { useAuthStore } from '../store'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 type Props = {}
 
 type InitialData = {
@@ -135,6 +136,9 @@ function Profile(props: Props) {
                     <button onClick={() => setToggleEditName(!toggleEditName)} className='flex justify-center items-center w-full border border-gray-200 rounded-md px-4 py-2 hover:cursor-pointer' >
                         Edit Name
                     </button>
+                    <Link className='flex justify-center items-center w-full border border-gray-200 rounded-md px-4 py-2 hover:cursor-pointer' to="/change-password">
+                        Change Password
+                    </Link>
                     <button onClick={async () => {
 
                         const response = await fetch(`${API_URL}/auth/logout`, {

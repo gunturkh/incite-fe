@@ -33,7 +33,7 @@ const Routes = (props: Props) => {
                 <Route path=":token" element={<EmailVerification />} />
             </Route>
             <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/change-password/:token" element={<ChangePassword />} />
+            <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/auth/facebook" element={<FacebookOAuthSuccessRedirect />} />
             <Route path="/error/:message" element={<ErrorPage />} />
             <Route element={<PrivateRoutes />} >
